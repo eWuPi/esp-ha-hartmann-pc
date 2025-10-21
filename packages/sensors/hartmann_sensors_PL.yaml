@@ -1,0 +1,354 @@
+# Pompa Ciepła Hartmann - Sensory - Wersja Polska
+# Pakiet ESPHome dla integracji pompy ciepła Hartmann
+#
+# Ten pakiet zawiera wszystkie definicje sensorów z polskimi nazwami
+# Użyj tego pakietu dla polskiego interfejsu użytkownika
+
+# Sensory temperatury - polskie nazwy
+sensor:
+  # Sensory systemowe
+  - platform: uptime
+    name: "Czas działania"
+    update_interval: 60s
+  
+  - platform: wifi_signal
+    name: "Sygnał WiFi"
+    update_interval: 60s
+
+  # Sensory temperatury pompy ciepła - RZECZYWISTE ADRESY z mapy Modbus Hartmann
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Temperatura zewnętrzna"
+    id: ambient_temp
+    register_type: holding
+    address: 40191  # B3: Temperatura powietrza zewnętrznego
+    unit_of_measurement: "°C"
+    value_type: FP32
+    accuracy_decimals: 1
+    device_class: temperature
+    state_class: measurement
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Temperatura wody powrotu"
+    id: inlet_temp
+    register_type: holding
+    address: 40189  # B1: Temperatura wody powrotnej
+    unit_of_measurement: "°C"
+    value_type: FP32
+    accuracy_decimals: 1
+    device_class: temperature
+    state_class: measurement
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Temperatura wody zasilania"
+    id: outlet_temp
+    register_type: holding
+    address: 40190  # B2: Temperatura wody zasilającej
+    unit_of_measurement: "°C"
+    value_type: FP32
+    accuracy_decimals: 1
+    device_class: temperature
+    state_class: measurement
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Temperatura sprężania"
+    id: discharge_temp
+    register_type: holding
+    address: 40192  # B4: Temperatura tłoczna sprężarki
+    unit_of_measurement: "°C"
+    value_type: FP32
+    accuracy_decimals: 1
+    device_class: temperature
+    state_class: measurement
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Temperatura ssania"
+    id: suction_temp
+    register_type: holding
+    address: 40193  # B5: Temperatura ssąca sprężarki
+    unit_of_measurement: "°C"
+    value_type: FP32
+    accuracy_decimals: 1
+    device_class: temperature
+    state_class: measurement
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Temperatura CWU"
+    id: hot_water_temp
+    register_type: holding
+    address: 40196  # B8: Temperatura ciepłej wody użytkowej
+    unit_of_measurement: "°C"
+    value_type: FP32
+    accuracy_decimals: 1
+    device_class: temperature
+    state_class: measurement
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Temperatura parownika"
+    id: coil_temp
+    register_type: holding
+    address: 40197  # B9: Temperatura wymiennika parownika
+    unit_of_measurement: "°C"
+    value_type: FP32
+    accuracy_decimals: 1
+    device_class: temperature
+    state_class: measurement
+
+  # Sensory ciśnienia
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Ciśnienie sprężania"
+    id: discharge_pressure
+    register_type: holding
+    address: 40194  # B6: Czujnik wysokiego ciśnienia
+    unit_of_measurement: "bar"
+    value_type: FP32
+    accuracy_decimals: 1
+    device_class: pressure
+    state_class: measurement
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Ciśnienie ssania"
+    id: suction_pressure
+    register_type: holding
+    address: 40195  # B7: Czujnik niskiego ciśnienia
+    unit_of_measurement: "bar"
+    value_type: FP32
+    accuracy_decimals: 1
+    device_class: pressure
+    state_class: measurement
+
+  # Sensory wydajności i sterowania
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Wyjście wentylatora"
+    id: fan_output
+    register_type: holding
+    address: 40198  # Y1: Procent wyjścia prędkości wentylatora
+    unit_of_measurement: "%"
+    value_type: FP32
+    accuracy_decimals: 1
+    state_class: measurement
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Wyjście pompy"
+    id: pump_output
+    register_type: holding
+    address: 40199  # Y3: Procent wyjścia PWM pompy
+    unit_of_measurement: "%"
+    value_type: FP32
+    accuracy_decimals: 1
+    state_class: measurement
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Prędkość sprężarki"
+    id: compressor_speed
+    register_type: holding
+    address: 40206  # Rzeczywista prędkość sprężarki
+    unit_of_measurement: "obr/s"
+    value_type: FP32
+    accuracy_decimals: 0
+    state_class: measurement
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Otwarcie zaworu EEV"
+    id: eev_opening
+    register_type: holding
+    address: 40208  # Otwarcie elektronicznego zaworu rozprężnego
+    unit_of_measurement: "%"
+    value_type: U_WORD
+    accuracy_decimals: 0
+    state_class: measurement
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Przegrzanie ssania"
+    id: suction_superheat
+    register_type: holding
+    address: 40212  # Przegrzanie gazu ssącego
+    unit_of_measurement: "K"
+    value_type: FP32
+    accuracy_decimals: 1
+    device_class: temperature
+    state_class: measurement
+
+# Sensory tekstowe - polski
+text_sensor:
+  - platform: version
+    name: "Wersja ESPHome"
+  
+  - platform: wifi_info
+    ip_address:
+      name: "Adres IP"
+    ssid:
+      name: "Połączona sieć WiFi"
+
+  # Status pompy ciepła
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Tryb pracy"
+    id: work_mode
+    register_type: holding
+    address: 40216  # Odczyt aktualnego trybu pracy
+    raw_encode: HEXBYTES
+    lambda: |-
+      uint16_t value = modbus_controller::word_from_hex_str(x, 0);
+      switch (value) {
+        case 0: return std::string("Chłodzenie");
+        case 1: return std::string("Ogrzewanie");
+        case 2: return std::string("CWU");
+        case 3: return std::string("Chłodzenie + CWU");
+        case 4: return std::string("Ogrzewanie + CWU");
+        default: return std::string("Nieznany");
+      }
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Status systemu"
+    id: system_status_text
+    register_type: holding
+    address: 40218  # Status systemu
+    raw_encode: HEXBYTES
+    lambda: |-
+      uint16_t value = modbus_controller::word_from_hex_str(x, 0);
+      switch (value) {
+        case 0: return std::string("Gotowość");
+        case 1: return std::string("Praca");
+        case 2: return std::string("Stop - Alarm");
+        case 3: return std::string("Stop - Timer");
+        case 4: return std::string("Stop - Obsługa");
+        case 5: return std::string("Stop - Awaryjny");
+        case 6: return std::string("Stop - Przycisk");
+        case 7: return std::string("Tryb ręczny");
+        case 8: return std::string("Antyzamarzanie");
+        case 9: return std::string("Stop - Łączenie AC");
+        case 10: return std::string("Zmiana trybu");
+        default: return std::string("Nieznany");
+      }
+
+# Sensory binarne - polski
+binary_sensor:
+  - platform: status
+    name: "Status połączenia"
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Czujnik przepływu"
+    id: flow_switch
+    register_type: discrete_input
+    address: 10002  # ID1: Status czujnika przepływu
+    device_class: problem
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Status pompy obiegowej"
+    id: pump_status
+    register_type: discrete_input
+    address: 10179  # Status pracy pompy obiegowej
+    device_class: running
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Status sprężarki"
+    id: compressor_status
+    register_type: discrete_input
+    address: 10180  # Status pracy sprężarki
+    device_class: running
+
+# Kontrolki liczbowe dla nastaw temperatury - polski
+number:
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Nastawa ogrzewania"
+    id: heating_setpoint
+    register_type: holding
+    address: 40002  # Nastawa ogrzewania
+    value_type: FP32
+    min_value: 10.0
+    max_value: 55.0
+    step: 0.5
+    unit_of_measurement: "°C"
+    mode: box
+    device_class: temperature
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Nastawa chłodzenia"
+    id: cooling_setpoint
+    register_type: holding
+    address: 40003  # Nastawa chłodzenia
+    value_type: FP32
+    min_value: 1.2
+    max_value: 25.0
+    step: 0.1
+    unit_of_measurement: "°C"
+    mode: box
+    device_class: temperature
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Nastawa CWU"
+    id: hot_water_setpoint
+    register_type: holding
+    address: 40004  # Nastawa ciepłej wody użytkowej
+    value_type: FP32
+    min_value: 10.0
+    max_value: 80.0
+    step: 0.5
+    unit_of_measurement: "°C"
+    mode: box
+    device_class: temperature
+
+# Przełączniki - polski
+switch:
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Wł/Wył jednostki"
+    id: unit_power
+    register_type: coil
+    address: 10001  # Główne sterowanie wł/wył jednostki
+
+# Lista wyboru trybów pracy - polski
+select:
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Wybór trybu pracy"
+    id: work_mode_select
+    address: 40001  # Rejestr wyboru trybu pracy
+    value_type: U_WORD
+    options:
+      - "Chłodzenie"
+      - "Ogrzewanie"
+      - "CWU"
+      - "Chłodzenie + CWU"
+      - "Ogrzewanie + CWU"
+    optionsmap:
+      "Chłodzenie": 0
+      "Ogrzewanie": 1
+      "CWU": 2
+      "Chłodzenie + CWU": 3
+      "Ogrzewanie + CWU": 4
+
+# Przyciski do operacji ręcznych - polski
+button:
+  - platform: restart
+    name: "Restart ESP"
+  
+  - platform: safe_mode
+    name: "Uruchomienie w trybie bezpiecznym"
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Reset alarmów"
+    address: 42  # Reset alarmów
+    command_on: 1

@@ -1,0 +1,31 @@
+# Hartmann Heat Pump ESPHome Integration
+
+🇬🇧 **[English version available](NOTICE)**
+
+Ten projekt zapewnia integrację ESPHome dla pomp ciepła Hartmann, opartą na doskonałym projekcie [ESPHome PV Inverter](https://github.com/eWuPi/esphome-pv-inverter).
+
+Ten projekt wykorzystuje ESPHome i powiązane komponenty. Zapoznaj się z plikiem NOTICE w celu uzyskania dodatkowych informacji o licencjach.
+
+## Komponenty zewnętrzne
+
+- **ESPHome**: [https://esphome.io/](https://esphome.io/) - Licencja MIT
+- **Arduino ESP32**: [https://github.com/espressif/arduino-esp32](https://github.com/espressif/arduino-esp32) - Licencja LGPL 2.1
+- **Home Assistant**: [https://www.home-assistant.io/](https://www.home-assistant.io/) - Licencja Apache 2.0
+
+## Inspiracja i podziękowania
+
+Ten projekt jest inspirowany i oparty na:
+- [ESPHome PV Inverter by eWuPi](https://github.com/eWuPi/esphome-pv-inverter) - Struktura konfiguracji i wzorce
+- [Zespół ESPHome](https://esphome.io/) - Platforma automatyki domowej
+- [Społeczność Home Assistant](https://community.home-assistant.io/) - Ciągłe wsparcie i inspiracja
+
+## Prawa autorskie zewnętrznych komponentów
+
+Wszystkie komponenty zewnętrzne zachowują swoje odpowiednie prawa autorskie i licencje. Ten projekt nie rości sobie praw do tych komponentów.
+
+## Licencja projektu
+
+Kod źródłowy projektu: Licencja Apache 2.0
+Dokumentacja: Licencja Apache 2.0
+
+Aby uzyskać więcej informacji, zobacz plik LICENSE w katalogu głównym projektu.
