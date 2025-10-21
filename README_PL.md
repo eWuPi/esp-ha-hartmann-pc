@@ -57,7 +57,9 @@ Jeśli potrzebujesz specjalnych modyfikacji, możesz stworzyć własną konfigur
 
 Integracja ESPHome dla pompy ciepła Hartmann opartej na protokole Modbus RTU. Projekt zapewnia kompleksową integrację z Home Assistant, umożliwiając monitorowanie i sterowanie systemem pompy ciepła w czasie rzeczywistym.
 
-Projekt bazuje na integracji: [ESPHome PV Inverter](https://github.com/eWuPi/esphome-pv-inverter)
+## Podziękowania
+
+Projekt bazuje na integracji: [ESPHome Deye Inverter](https://github.com/Lewa-Reka/esphome-deye-inverter)
 
 🇬🇧 **[English version available](README_EN.md)**
 
@@ -263,7 +265,7 @@ Ten projekt jest licencjonowany na licencji Apache License 2.0 - zobacz plik [LI
 
 ## 🙏 Podziękowania
 
-- [ESPHome PV Inverter by eWuPi](https://github.com/eWuPi/esphome-pv-inverter) za inspirację i strukturę projektu
+- **Lewa-Reka** za projekt [ESPHome Deye Inverter](https://github.com/Lewa-Reka/esphome-deye-inverter) za inspirację i strukturę projektu
 - [Zespół ESPHome](https://esphome.io/) za doskonałą platformę automatyki domowej
 - [Społeczność Home Assistant](https://community.home-assistant.io/) za ciągłe wsparcie i inspirację
 

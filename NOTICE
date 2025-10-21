@@ -2,7 +2,7 @@
 
 🇵🇱 **[Wersja polska dostępna](NOTICE_PL)**
 
-This project provides an ESPHome integration for Hartmann heat pumps, based on the excellent [ESPHome PV Inverter](https://github.com/eWuPi/esphome-pv-inverter) project.
+This project provides an ESPHome integration for Hartmann heat pumps, based on the excellent [ESPHome Deye Inverter](https://github.com/Lewa-Reka/esphome-deye-inverter) project.
 
 This project uses ESPHome and related components. Please refer to the NOTICE file for additional license information.
 
@@ -15,7 +15,7 @@ This project uses ESPHome and related components. Please refer to the NOTICE fil
 ## Inspiration and Acknowledgments
 
 This project is inspired by and based on:
-- [ESPHome PV Inverter by eWuPi](https://github.com/eWuPi/esphome-pv-inverter) - Configuration structure and patterns
+- **Lewa-Reka** for the [ESPHome Deye Inverter](https://github.com/Lewa-Reka/esphome-deye-inverter) - Configuration structure and patterns
 - [ESPHome Team](https://esphome.io/) - Home automation platform
 - [Home Assistant Community](https://community.home-assistant.io/) - Continuous support and inspiration
 

@@ -21,7 +21,7 @@ limitations under the License.
 
 An ESPHome-based integration for Hartmann heat pumps using Modbus RTU protocol. This project provides comprehensive integration with Home Assistant, enabling real-time monitoring and control of heat pump systems.
 
-Based on: [ESPHome PV Inverter](https://github.com/eWuPi/esphome-pv-inverter)
+Based on: [ESPHome Deye Inverter](https://github.com/Lewa-Reka/esphome-deye-inverter)
 
 🇵🇱 **[Polish version available](README_PL.md)**
 
@@ -203,7 +203,7 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 ## 🙏 Acknowledgments
 
-- [ESPHome PV Inverter by eWuPi](https://github.com/eWuPi/esphome-pv-inverter) for inspiration and project structure
+- **Lewa-Reka** for the [ESPHome Deye Inverter](https://github.com/Lewa-Reka/esphome-deye-inverter) project for inspiration and project structure
 - [ESPHome Team](https://esphome.io/) for the excellent home automation platform
 - [Home Assistant Community](https://community.home-assistant.io/) for continuous support and inspiration
 
