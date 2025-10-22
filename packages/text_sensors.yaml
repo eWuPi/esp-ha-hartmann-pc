@@ -1,0 +1,55 @@
+# Hartmann Heat Pump - Unified Text Sensor Components
+# Pompa Ciepła Hartmann - Ujednolicone Komponenty Text Sensor
+
+text_sensor:
+  - platform: version
+    name: "${esphome_version_name}"
+  
+  - platform: wifi_info
+    ip_address:
+      name: "${ip_address_name}"
+    ssid:
+      name: "${connected_ssid_name}"
+
+  # Heat pump status
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${work_mode_name}"
+    id: work_mode
+    register_type: holding
+    address: 215  # Current work mode readback (40216-40001=215)
+    raw_encode: HEXBYTES
+    lambda: |-
+      uint16_t value = modbus_controller::word_from_hex_str(x, 0);
+      switch (value) {
+        case 0: return std::string("${mode_cooling}");
+        case 1: return std::string("${mode_heating}");
+        case 2: return std::string("${mode_dhw}");
+        case 3: return std::string("${mode_cooling_dhw}");
+        case 4: return std::string("${mode_heating_dhw}");
+        default: return std::string("${status_unknown}");
+      }
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${system_status_text_name}"
+    id: system_status_text
+    register_type: holding
+    address: 217  # System status (40218-40001=217)
+    raw_encode: HEXBYTES
+    lambda: |-
+      uint16_t value = modbus_controller::word_from_hex_str(x, 0);
+      switch (value) {
+        case 0: return std::string("${status_ready}");
+        case 1: return std::string("${status_running}");
+        case 2: return std::string("${status_alarm_stop}");
+        case 3: return std::string("${status_timer_stop}");
+        case 4: return std::string("${status_service_stop}");
+        case 5: return std::string("${status_emergency_stop}");
+        case 6: return std::string("${status_button_stop}");
+        case 7: return std::string("${status_manual_mode}");
+        case 8: return std::string("${status_antifreeze}");
+        case 9: return std::string("${status_ac_linkage_stop}");
+        case 10: return std::string("${status_mode_change}");
+        default: return std::string("${status_unknown}");
+      }

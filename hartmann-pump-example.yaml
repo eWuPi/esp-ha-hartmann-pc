@@ -1,0 +1,228 @@
+# Hartmann Heat Pump - Example Main Configuration
+# Pompa Ciepła Hartmann - Przykładowa Główna Konfiguracja
+#
+# This is a complete example configuration that imports all packages from GitHub
+# To jest kompletna przykładowa konfiguracja importująca wszystkie pakiety z GitHub
+#
+# Instructions / Instrukcje:
+# 1. Copy this file as your main device yaml (e.g., my-hartmann-pump.yaml)
+# 2. Configure your secrets.yaml with the values shown at the bottom
+# 3. Adjust pin numbers and other settings for your hardware
+# 4. Flash to your ESP32 device
+#
+# 1. Skopiuj ten plik jako główny yaml urządzenia (np. moja-pompa-hartmann.yaml)
+# 2. Skonfiguruj secrets.yaml z wartościami pokazanymi na dole
+# 3. Dostosuj numery pinów i inne ustawienia do swojego sprzętu
+# 4. Wgraj do urządzenia ESP32
+
+# ============================================================================
+# BASIC DEVICE CONFIGURATION / PODSTAWOWA KONFIGURACJA URZĄDZENIA
+# ============================================================================
+esphome:
+  name: hartmann-heat-pump
+  friendly_name: "Hartmann Heat Pump"
+  comment: "ESPHome integration for Hartmann heat pump via Modbus RTU"
+  project:
+    name: "hartmann.heat_pump"
+    version: "2.0.0"
+
+# ============================================================================
+# HARDWARE CONFIGURATION / KONFIGURACJA SPRZĘTU
+# ============================================================================
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+    version: recommended
+
+# ============================================================================
+# LOGGING CONFIGURATION / KONFIGURACJA LOGOWANIA
+# ============================================================================
+logger:
+  level: DEBUG
+
+# ============================================================================
+# HOME ASSISTANT INTEGRATION / INTEGRACJA Z HOME ASSISTANT
+# ============================================================================
+api:
+  encryption:
+    key: !secret hartmann_api_key
+
+# Enable OTA updates
+ota:
+  password: !secret hartmann_ota_password
+
+# ============================================================================
+# NETWORK CONFIGURATION / KONFIGURACJA SIECI
+# ============================================================================
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Hartmann HP Fallback"
+    password: !secret hartmann_fallback_password
+
+captive_portal:
+
+# Web server for direct device access
+web_server:
+  port: 80
+
+# ============================================================================
+# STATUS LED CONFIGURATION / KONFIGURACJA LED STATUSU
+# ============================================================================
+status_led:
+  pin:
+    number: 2
+    inverted: true
+
+# ============================================================================
+# MODBUS UART CONFIGURATION / KONFIGURACJA MODBUS UART
+# ============================================================================
+# Adjust pin numbers according to your ESP32 wiring
+# Dostosuj numery pinów zgodnie z okablowaniem ESP32
+uart:
+  - id: uart_modbus
+    tx_pin: 17  # Change to your TX pin / Zmień na swój pin TX
+    rx_pin: 16  # Change to your RX pin / Zmień na swój pin RX
+    baud_rate: 19200  # Modbus baud rate (usually 19200)
+    parity: NONE
+    stop_bits: 1
+
+# ============================================================================
+# MODBUS CONFIGURATION / KONFIGURACJA MODBUS
+# ============================================================================
+modbus:
+  - id: hartmann_modbus
+    uart_id: uart_modbus
+
+modbus_controller:
+  - id: hartmann_modbus_controller
+    address: 1  # Hartmann heat pump Modbus address (usually 1)
+    modbus_id: hartmann_modbus
+    update_interval: 5s
+
+# ============================================================================
+# SAFETY AND MONITORING / BEZPIECZEŃSTWO I MONITOROWANIE
+# ============================================================================
+# Global variables for safety mode
+globals:
+  - id: ha_connected
+    type: bool
+    restore_value: no
+    initial_value: 'false'
+  
+  - id: safe_mode_active
+    type: bool
+    restore_value: no
+    initial_value: 'false'
+
+# Safety monitoring implemented via interval components
+interval:
+  # Safe mode check every 30 seconds
+  - interval: 30s
+    then:
+      - if:
+          condition:
+            lambda: 'return id(safe_mode_active);'
+          then:
+            - logger.log: "Safe mode active - heat pump controlled locally"
+      # Temperature safety check
+      - if:
+          condition:
+            lambda: 'return id(outlet_temp).state > 65.0;'
+          then:
+            - logger.log:
+                format: "SAFETY: High outlet temperature detected: %.1f°C"
+                args: ['id(outlet_temp).state']
+            - switch.turn_off: unit_power
+      
+  # Antifreeze protection check every 60 seconds
+  - interval: 60s
+    then:
+      - if:
+          condition:
+            lambda: 'return id(ambient_temp).state < -15.0;'
+          then:
+            - logger.log:
+                format: "SAFETY: Antifreeze protection activated at %.1f°C"
+                args: ['id(ambient_temp).state']
+
+# ============================================================================
+# IMPORT ALL HARTMANN PACKAGES FROM GITHUB
+# IMPORT WSZYSTKICH PAKIETÓW HARTMANN Z GITHUB
+# ============================================================================
+# Direct import of specific files - gives you full control over what gets imported
+# Bezpośredni import konkretnych plików - daje pełną kontrolę nad tym co zostanie zaimportowane
+packages:
+  hartmann_packages:
+    url: https://github.com/eWuPi/esp-ha-hartmann-pc
+    ref: main
+    refresh: 300s
+    files: [
+      'packages/translations/PL.yaml',    # Polish interface / Polski interfejs
+      'packages/binary_sensors.yaml',     # 165+ alarms / 165+ alarmów
+      'packages/sensors.yaml',            # Temperature, pressure, flow sensors / Sensory temp, ciśnień, przepływów
+      'packages/text_sensors.yaml',       # Status text sensors / Tekstowe sensory statusu
+      'packages/climate.yaml',            # Unified climate control / Zjednoczony termostat
+      'packages/select.yaml',             # Mode selections / Wybory trybów
+      'packages/switch.yaml',             # Power switches / Przełączniki zasilania
+      'packages/button.yaml'              # Control buttons / Przyciski sterowania
+    ]
+  
+  # ALTERNATIVE: English interface (replace PL.yaml with EN.yaml above, or add this override)
+  # ALTERNATYWNIE: Angielski interfejs (zastąp PL.yaml przez EN.yaml powyżej, lub dodaj to nadpisanie)
+  # english_translations:
+  #   url: https://github.com/eWuPi/esp-ha-hartmann-pc
+  #   ref: main
+  #   files: ['packages/translations/EN.yaml']
+  #   refresh: 300s
+
+# ============================================================================
+# REQUIRED SECRETS.YAML CONFIGURATION
+# WYMAGANA KONFIGURACJA SECRETS.YAML
+# ============================================================================
+# Create a secrets.yaml file in the same directory with these values:
+# Utwórz plik secrets.yaml w tym samym katalogu z tymi wartościami:
+#
+# # WiFi Configuration / Konfiguracja WiFi
+# wifi_ssid: "YourWiFiNetworkName"
+# wifi_password: "YourWiFiPassword"
+# hartmann_fallback_password: "FallbackHotspotPassword"
+#
+# # Security Configuration / Konfiguracja Bezpieczeństwa
+# hartmann_ota_password: "YourOTAUpdatePassword"
+# hartmann_api_key: "YourBase64EncodedAPIKey"  # Generate with: openssl rand -base64 32
+#
+# ============================================================================
+# HARDWARE WIRING GUIDE / PRZEWODNIK OKABLOWANIA SPRZĘTU
+# ============================================================================
+# Connect your ESP32 to Hartmann heat pump Modbus interface:
+# Podłącz ESP32 do interfejsu Modbus pompy ciepła Hartmann:
+#
+# ESP32 Pin | Hartmann Modbus | Description
+# ----------|-----------------|-------------
+# 17 (TX)   | A+              | RS485 Data+
+# 16 (RX)   | B-              | RS485 Data-
+# GND       | GND             | Common Ground
+# 3.3V      | VCC             | Power (if needed)
+#
+# Note: You may need an RS485 to TTL converter module
+# Uwaga: Może być potrzebny moduł konwertera RS485 do TTL
+#
+# ============================================================================
+# TROUBLESHOOTING / ROZWIĄZYWANIE PROBLEMÓW
+# ============================================================================
+# 1. Check Modbus wiring and termination resistors
+# 2. Verify baud rate and device address in secrets.yaml
+# 3. Monitor ESPHome logs for communication errors
+# 4. Ensure proper power supply to ESP32
+# 5. Check WiFi signal strength and credentials
+#
+# 1. Sprawdź okablowanie Modbus i rezystory terminujące
+# 2. Zweryfikuj prędkość transmisji i adres urządzenia w secrets.yaml
+# 3. Monitoruj logi ESPHome pod kątem błędów komunikacji
+# 4. Upewnij się o właściwym zasilaniu ESP32
+# 5. Sprawdź siłę sygnału WiFi i dane uwierzytelniające

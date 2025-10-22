@@ -1,0 +1,1653 @@
+# Hartmann Heat Pump - Complete Binary Sensor Components
+# Pompa Ciepła Hartmann - Kompletne Komponenty Binary Sensor
+
+binary_sensor:
+  # System status sensors
+  - platform: status
+    name: "${connection_status_name}"
+    icon: mdi:wifi
+    
+  # General alarm - active when any alarm is active
+  - platform: template
+    name: "${general_alarm_name}"
+    id: general_alarm
+    device_class: problem
+    icon: mdi:alert-circle
+    lambda: |-
+      // Check if any alarm sensor is active
+      if (id(alarm_001).state || id(alarm_002).state || id(alarm_003).state || 
+          id(alarm_004).state || id(alarm_005).state || id(alarm_006).state ||
+          id(alarm_007).state || id(alarm_008).state || id(alarm_009).state ||
+          id(alarm_010).state || id(alarm_011).state || id(alarm_012).state ||
+          id(alarm_013).state || id(alarm_014).state || id(alarm_015).state ||
+          id(alarm_016).state || id(alarm_017).state || id(alarm_018).state ||
+          id(alarm_019).state || id(alarm_020).state || id(alarm_021).state ||
+          id(alarm_022).state || id(alarm_023).state || id(alarm_024).state ||
+          id(alarm_025).state || id(alarm_026).state || id(alarm_027).state ||
+          id(alarm_028).state || id(alarm_029).state || id(alarm_030).state ||
+          id(alarm_031).state || id(alarm_032).state || id(alarm_033).state ||
+          id(alarm_034).state || id(alarm_035).state || id(alarm_036).state ||
+          id(alarm_037).state || id(alarm_038).state || id(alarm_039).state ||
+          id(alarm_040).state || id(alarm_041).state || id(alarm_042).state ||
+          id(alarm_043).state || id(alarm_044).state || id(alarm_045).state ||
+          id(alarm_046).state || id(alarm_047).state || id(alarm_048).state ||
+          id(alarm_049).state || id(alarm_050).state || id(alarm_051).state ||
+          id(alarm_052).state || id(alarm_053).state || id(alarm_054).state ||
+          id(alarm_055).state || id(alarm_056).state || id(alarm_057).state ||
+          id(alarm_058).state || id(alarm_059).state || id(alarm_060).state ||
+          id(alarm_061).state || id(alarm_062).state || id(alarm_063).state ||
+          id(alarm_064).state || id(alarm_065).state || id(alarm_066).state ||
+          id(alarm_067).state || id(alarm_068).state || id(alarm_069).state ||
+          id(alarm_070).state || id(alarm_071).state || id(alarm_072).state ||
+          id(alarm_073).state || id(alarm_074).state || id(alarm_075).state ||
+          id(alarm_076).state || id(alarm_077).state || id(alarm_078).state ||
+          id(alarm_079).state || id(alarm_080).state || id(alarm_081).state ||
+          id(alarm_082).state || id(alarm_083).state || id(alarm_084).state ||
+          id(alarm_085).state || id(alarm_086).state || id(alarm_087).state ||
+          id(alarm_088).state || id(alarm_089).state || id(alarm_090).state ||
+          id(alarm_091).state || id(alarm_092).state || id(alarm_093).state ||
+          id(alarm_094).state || id(alarm_095).state || id(alarm_096).state ||
+          id(alarm_097).state || id(alarm_098).state || id(alarm_099).state ||
+          id(alarm_100).state || id(alarm_101).state || id(alarm_102).state ||
+          id(alarm_103).state || id(alarm_104).state || id(alarm_105).state ||
+          id(alarm_106).state || id(alarm_107).state || id(alarm_108).state ||
+          id(alarm_109).state || id(alarm_110).state || id(alarm_111).state ||
+          id(alarm_112).state || id(alarm_113).state || id(alarm_114).state ||
+          id(alarm_115).state || id(alarm_116).state || id(alarm_117).state ||
+          id(alarm_118).state || id(alarm_119).state || id(alarm_120).state ||
+          id(alarm_121).state || id(alarm_122).state || id(alarm_123).state ||
+          id(alarm_124).state || id(alarm_125).state || id(alarm_126).state ||
+          id(alarm_127).state || id(alarm_128).state || id(alarm_129).state ||
+          id(alarm_130).state || id(alarm_131).state || id(alarm_132).state ||
+          id(alarm_133).state || id(alarm_134).state || id(alarm_135).state ||
+          id(alarm_136).state || id(alarm_137).state || id(alarm_138).state ||
+          id(alarm_139).state || id(alarm_140).state || id(alarm_141).state ||
+          id(alarm_142).state || id(alarm_143).state || id(alarm_144).state ||
+          id(alarm_145).state || id(alarm_146).state || id(alarm_147).state ||
+          id(alarm_148).state || id(alarm_149).state || id(alarm_150).state ||
+          id(alarm_151).state || id(alarm_152).state || id(alarm_153).state ||
+          id(alarm_154).state || id(alarm_155).state || id(alarm_165).state ||
+          id(alarm_166).state || id(alarm_167).state || id(alarm_168).state ||
+          id(alarm_169).state || id(alarm_170).state || id(alarm_171).state ||
+          id(alarm_172).state || id(alarm_173).state || id(alarm_174).state) {
+        return true;
+      }
+      return false;
+    
+  # Basic system sensors
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${power_supply_name}"
+    id: power_supply
+    register_type: discrete_input
+    address: 0
+    device_class: power
+    icon: mdi:power
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${flow_switch_name}"
+    id: flow_switch
+    register_type: discrete_input
+    address: 1
+    device_class: problem
+    icon: mdi:pipe-valve
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${external_control_name}"
+    id: external_control
+    register_type: discrete_input
+    address: 2
+    icon: mdi:remote
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${circulation_pump_basic_name}"
+    id: circulation_pump_basic
+    register_type: discrete_input
+    address: 8
+    device_class: running
+    icon: mdi:pump
+    
+  # Coil sensors
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${defrost_name}"
+    id: defrost
+    register_type: coil
+    address: 36
+    icon: mdi:snowflake-off
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${time_zones_name}"
+    id: time_zones
+    register_type: coil
+    address: 38
+    icon: mdi:clock-outline
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${weekly_program_name}"
+    id: weekly_program
+    register_type: coil
+    address: 39
+    icon: mdi:calendar-week
+    
+  # Equipment status sensors
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${circulation_pump_name}"
+    id: circulation_pump
+    register_type: discrete_input
+    address: 178
+    device_class: running
+    icon: mdi:pump
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${compressor_name}"
+    id: compressor
+    register_type: discrete_input
+    address: 179
+    device_class: running
+    icon: mdi:air-conditioner
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${fan_name}"
+    id: fan
+    register_type: discrete_input
+    address: 180
+    device_class: running
+    icon: mdi:fan
+
+  # ============================================================================
+  # ALARM SYSTEM - 164 ALARMS (Address 13-177, missing 156-164)
+  # ============================================================================
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_001_name}"
+    id: alarm_001
+    register_type: discrete_input
+    address: 13
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_002_name}"
+    id: alarm_002
+    register_type: discrete_input
+    address: 14
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_003_name}"
+    id: alarm_003
+    register_type: discrete_input
+    address: 15
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_004_name}"
+    id: alarm_004
+    register_type: discrete_input
+    address: 16
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_005_name}"
+    id: alarm_005
+    register_type: discrete_input
+    address: 17
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_006_name}"
+    id: alarm_006
+    register_type: discrete_input
+    address: 18
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_007_name}"
+    id: alarm_007
+    register_type: discrete_input
+    address: 19
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_008_name}"
+    id: alarm_008
+    register_type: discrete_input
+    address: 20
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_009_name}"
+    id: alarm_009
+    register_type: discrete_input
+    address: 21
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_010_name}"
+    id: alarm_010
+    register_type: discrete_input
+    address: 22
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_011_name}"
+    id: alarm_011
+    register_type: discrete_input
+    address: 23
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_012_name}"
+    id: alarm_012
+    register_type: discrete_input
+    address: 24
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_013_name}"
+    id: alarm_013
+    register_type: discrete_input
+    address: 25
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_014_name}"
+    id: alarm_014
+    register_type: discrete_input
+    address: 26
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_015_name}"
+    id: alarm_015
+    register_type: discrete_input
+    address: 27
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_016_name}"
+    id: alarm_016
+    register_type: discrete_input
+    address: 28
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_017_name}"
+    id: alarm_017
+    register_type: discrete_input
+    address: 29
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_018_name}"
+    id: alarm_018
+    register_type: discrete_input
+    address: 30
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_019_name}"
+    id: alarm_019
+    register_type: discrete_input
+    address: 31
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_020_name}"
+    id: alarm_020
+    register_type: discrete_input
+    address: 32
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_021_name}"
+    id: alarm_021
+    register_type: discrete_input
+    address: 33
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_022_name}"
+    id: alarm_022
+    register_type: discrete_input
+    address: 34
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_023_name}"
+    id: alarm_023
+    register_type: discrete_input
+    address: 35
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_024_name}"
+    id: alarm_024
+    register_type: discrete_input
+    address: 36
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_025_name}"
+    id: alarm_025
+    register_type: discrete_input
+    address: 37
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_026_name}"
+    id: alarm_026
+    register_type: discrete_input
+    address: 38
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_027_name}"
+    id: alarm_027
+    register_type: discrete_input
+    address: 39
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_028_name}"
+    id: alarm_028
+    register_type: discrete_input
+    address: 40
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_029_name}"
+    id: alarm_029
+    register_type: discrete_input
+    address: 41
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_030_name}"
+    id: alarm_030
+    register_type: discrete_input
+    address: 42
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_031_name}"
+    id: alarm_031
+    register_type: discrete_input
+    address: 43
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_032_name}"
+    id: alarm_032
+    register_type: discrete_input
+    address: 44
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_033_name}"
+    id: alarm_033
+    register_type: discrete_input
+    address: 45
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_034_name}"
+    id: alarm_034
+    register_type: discrete_input
+    address: 46
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_035_name}"
+    id: alarm_035
+    register_type: discrete_input
+    address: 47
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_036_name}"
+    id: alarm_036
+    register_type: discrete_input
+    address: 48
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_037_name}"
+    id: alarm_037
+    register_type: discrete_input
+    address: 49
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_038_name}"
+    id: alarm_038
+    register_type: discrete_input
+    address: 50
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_039_name}"
+    id: alarm_039
+    register_type: discrete_input
+    address: 51
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_040_name}"
+    id: alarm_040
+    register_type: discrete_input
+    address: 52
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_041_name}"
+    id: alarm_041
+    register_type: discrete_input
+    address: 53
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_042_name}"
+    id: alarm_042
+    register_type: discrete_input
+    address: 54
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_043_name}"
+    id: alarm_043
+    register_type: discrete_input
+    address: 55
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_044_name}"
+    id: alarm_044
+    register_type: discrete_input
+    address: 56
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_045_name}"
+    id: alarm_045
+    register_type: discrete_input
+    address: 57
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_046_name}"
+    id: alarm_046
+    register_type: discrete_input
+    address: 58
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_047_name}"
+    id: alarm_047
+    register_type: discrete_input
+    address: 59
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_048_name}"
+    id: alarm_048
+    register_type: discrete_input
+    address: 60
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_049_name}"
+    id: alarm_049
+    register_type: discrete_input
+    address: 61
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_050_name}"
+    id: alarm_050
+    register_type: discrete_input
+    address: 62
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_051_name}"
+    id: alarm_051
+    register_type: discrete_input
+    address: 63
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_052_name}"
+    id: alarm_052
+    register_type: discrete_input
+    address: 64
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_053_name}"
+    id: alarm_053
+    register_type: discrete_input
+    address: 65
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_054_name}"
+    id: alarm_054
+    register_type: discrete_input
+    address: 66
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_055_name}"
+    id: alarm_055
+    register_type: discrete_input
+    address: 67
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_056_name}"
+    id: alarm_056
+    register_type: discrete_input
+    address: 68
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_057_name}"
+    id: alarm_057
+    register_type: discrete_input
+    address: 69
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_058_name}"
+    id: alarm_058
+    register_type: discrete_input
+    address: 70
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_059_name}"
+    id: alarm_059
+    register_type: discrete_input
+    address: 71
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_060_name}"
+    id: alarm_060
+    register_type: discrete_input
+    address: 72
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_061_name}"
+    id: alarm_061
+    register_type: discrete_input
+    address: 73
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_062_name}"
+    id: alarm_062
+    register_type: discrete_input
+    address: 74
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_063_name}"
+    id: alarm_063
+    register_type: discrete_input
+    address: 75
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_064_name}"
+    id: alarm_064
+    register_type: discrete_input
+    address: 76
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_065_name}"
+    id: alarm_065
+    register_type: discrete_input
+    address: 77
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_066_name}"
+    id: alarm_066
+    register_type: discrete_input
+    address: 78
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_067_name}"
+    id: alarm_067
+    register_type: discrete_input
+    address: 79
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_068_name}"
+    id: alarm_068
+    register_type: discrete_input
+    address: 80
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_069_name}"
+    id: alarm_069
+    register_type: discrete_input
+    address: 81
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_070_name}"
+    id: alarm_070
+    register_type: discrete_input
+    address: 82
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_071_name}"
+    id: alarm_071
+    register_type: discrete_input
+    address: 83
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_072_name}"
+    id: alarm_072
+    register_type: discrete_input
+    address: 84
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_073_name}"
+    id: alarm_073
+    register_type: discrete_input
+    address: 85
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_074_name}"
+    id: alarm_074
+    register_type: discrete_input
+    address: 86
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_075_name}"
+    id: alarm_075
+    register_type: discrete_input
+    address: 87
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_076_name}"
+    id: alarm_076
+    register_type: discrete_input
+    address: 88
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_077_name}"
+    id: alarm_077
+    register_type: discrete_input
+    address: 89
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_078_name}"
+    id: alarm_078
+    register_type: discrete_input
+    address: 90
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_079_name}"
+    id: alarm_079
+    register_type: discrete_input
+    address: 91
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_080_name}"
+    id: alarm_080
+    register_type: discrete_input
+    address: 92
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_081_name}"
+    id: alarm_081
+    register_type: discrete_input
+    address: 93
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_082_name}"
+    id: alarm_082
+    register_type: discrete_input
+    address: 94
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_083_name}"
+    id: alarm_083
+    register_type: discrete_input
+    address: 95
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_084_name}"
+    id: alarm_084
+    register_type: discrete_input
+    address: 96
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_085_name}"
+    id: alarm_085
+    register_type: discrete_input
+    address: 97
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_086_name}"
+    id: alarm_086
+    register_type: discrete_input
+    address: 98
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_087_name}"
+    id: alarm_087
+    register_type: discrete_input
+    address: 99
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_088_name}"
+    id: alarm_088
+    register_type: discrete_input
+    address: 100
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_089_name}"
+    id: alarm_089
+    register_type: discrete_input
+    address: 101
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_090_name}"
+    id: alarm_090
+    register_type: discrete_input
+    address: 102
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_091_name}"
+    id: alarm_091
+    register_type: discrete_input
+    address: 103
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_092_name}"
+    id: alarm_092
+    register_type: discrete_input
+    address: 104
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_093_name}"
+    id: alarm_093
+    register_type: discrete_input
+    address: 105
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_094_name}"
+    id: alarm_094
+    register_type: discrete_input
+    address: 106
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_095_name}"
+    id: alarm_095
+    register_type: discrete_input
+    address: 107
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_096_name}"
+    id: alarm_096
+    register_type: discrete_input
+    address: 108
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_097_name}"
+    id: alarm_097
+    register_type: discrete_input
+    address: 109
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_098_name}"
+    id: alarm_098
+    register_type: discrete_input
+    address: 110
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_099_name}"
+    id: alarm_099
+    register_type: discrete_input
+    address: 111
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_100_name}"
+    id: alarm_100
+    register_type: discrete_input
+    address: 112
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_101_name}"
+    id: alarm_101
+    register_type: discrete_input
+    address: 113
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_102_name}"
+    id: alarm_102
+    register_type: discrete_input
+    address: 114
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_103_name}"
+    id: alarm_103
+    register_type: discrete_input
+    address: 115
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_104_name}"
+    id: alarm_104
+    register_type: discrete_input
+    address: 116
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_105_name}"
+    id: alarm_105
+    register_type: discrete_input
+    address: 117
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_106_name}"
+    id: alarm_106
+    register_type: discrete_input
+    address: 118
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_107_name}"
+    id: alarm_107
+    register_type: discrete_input
+    address: 119
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_108_name}"
+    id: alarm_108
+    register_type: discrete_input
+    address: 120
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_109_name}"
+    id: alarm_109
+    register_type: discrete_input
+    address: 121
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_110_name}"
+    id: alarm_110
+    register_type: discrete_input
+    address: 122
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_111_name}"
+    id: alarm_111
+    register_type: discrete_input
+    address: 123
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_112_name}"
+    id: alarm_112
+    register_type: discrete_input
+    address: 124
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_113_name}"
+    id: alarm_113
+    register_type: discrete_input
+    address: 125
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_114_name}"
+    id: alarm_114
+    register_type: discrete_input
+    address: 126
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_115_name}"
+    id: alarm_115
+    register_type: discrete_input
+    address: 127
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_116_name}"
+    id: alarm_116
+    register_type: discrete_input
+    address: 128
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_117_name}"
+    id: alarm_117
+    register_type: discrete_input
+    address: 129
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_118_name}"
+    id: alarm_118
+    register_type: discrete_input
+    address: 130
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_119_name}"
+    id: alarm_119
+    register_type: discrete_input
+    address: 131
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_120_name}"
+    id: alarm_120
+    register_type: discrete_input
+    address: 132
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_121_name}"
+    id: alarm_121
+    register_type: discrete_input
+    address: 133
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_122_name}"
+    id: alarm_122
+    register_type: discrete_input
+    address: 134
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_123_name}"
+    id: alarm_123
+    register_type: discrete_input
+    address: 135
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_124_name}"
+    id: alarm_124
+    register_type: discrete_input
+    address: 136
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_125_name}"
+    id: alarm_125
+    register_type: discrete_input
+    address: 137
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_126_name}"
+    id: alarm_126
+    register_type: discrete_input
+    address: 138
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_127_name}"
+    id: alarm_127
+    register_type: discrete_input
+    address: 139
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_128_name}"
+    id: alarm_128
+    register_type: discrete_input
+    address: 140
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_129_name}"
+    id: alarm_129
+    register_type: discrete_input
+    address: 141
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_130_name}"
+    id: alarm_130
+    register_type: discrete_input
+    address: 142
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_131_name}"
+    id: alarm_131
+    register_type: discrete_input
+    address: 143
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_132_name}"
+    id: alarm_132
+    register_type: discrete_input
+    address: 144
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_133_name}"
+    id: alarm_133
+    register_type: discrete_input
+    address: 145
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_134_name}"
+    id: alarm_134
+    register_type: discrete_input
+    address: 146
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_135_name}"
+    id: alarm_135
+    register_type: discrete_input
+    address: 147
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_136_name}"
+    id: alarm_136
+    register_type: discrete_input
+    address: 148
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_137_name}"
+    id: alarm_137
+    register_type: discrete_input
+    address: 149
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_138_name}"
+    id: alarm_138
+    register_type: discrete_input
+    address: 150
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_139_name}"
+    id: alarm_139
+    register_type: discrete_input
+    address: 151
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_140_name}"
+    id: alarm_140
+    register_type: discrete_input
+    address: 152
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_141_name}"
+    id: alarm_141
+    register_type: discrete_input
+    address: 153
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_142_name}"
+    id: alarm_142
+    register_type: discrete_input
+    address: 154
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_143_name}"
+    id: alarm_143
+    register_type: discrete_input
+    address: 155
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_144_name}"
+    id: alarm_144
+    register_type: discrete_input
+    address: 156
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_145_name}"
+    id: alarm_145
+    register_type: discrete_input
+    address: 157
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_146_name}"
+    id: alarm_146
+    register_type: discrete_input
+    address: 158
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_147_name}"
+    id: alarm_147
+    register_type: discrete_input
+    address: 159
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_148_name}"
+    id: alarm_148
+    register_type: discrete_input
+    address: 160
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_149_name}"
+    id: alarm_149
+    register_type: discrete_input
+    address: 161
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_150_name}"
+    id: alarm_150
+    register_type: discrete_input
+    address: 162
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_151_name}"
+    id: alarm_151
+    register_type: discrete_input
+    address: 163
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_152_name}"
+    id: alarm_152
+    register_type: discrete_input
+    address: 164
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_153_name}"
+    id: alarm_153
+    register_type: discrete_input
+    address: 165
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_154_name}"
+    id: alarm_154
+    register_type: discrete_input
+    address: 166
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_155_name}"
+    id: alarm_155
+    register_type: discrete_input
+    address: 167
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_165_name}"
+    id: alarm_165
+    register_type: discrete_input
+    address: 168
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_166_name}"
+    id: alarm_166
+    register_type: discrete_input
+    address: 169
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_167_name}"
+    id: alarm_167
+    register_type: discrete_input
+    address: 170
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_168_name}"
+    id: alarm_168
+    register_type: discrete_input
+    address: 171
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_169_name}"
+    id: alarm_169
+    register_type: discrete_input
+    address: 172
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_170_name}"
+    id: alarm_170
+    register_type: discrete_input
+    address: 173
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_171_name}"
+    id: alarm_171
+    register_type: discrete_input
+    address: 174
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_172_name}"
+    id: alarm_172
+    register_type: discrete_input
+    address: 175
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_173_name}"
+    id: alarm_173
+    register_type: discrete_input
+    address: 176
+    device_class: problem
+    icon: mdi:alert
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "${alarm_174_name}"
+    id: alarm_174
+    register_type: discrete_input
+    address: 177
+    device_class: problem
+    icon: mdi:alert

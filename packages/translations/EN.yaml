@@ -1,0 +1,342 @@
+# Hartmann Heat Pump - English Translations
+# Pompa Ciepła Hartmann - English Translations
+
+substitutions:
+  # ============================================================================
+  # SYSTEM SENSORS / SENSORY SYSTEMOWE
+  # ============================================================================
+  uptime_name: "Uptime"
+  wifi_signal_name: "WiFi Signal"
+  esphome_version_name: "ESPHome Version"
+  ip_address_name: "IP Address"
+  connected_ssid_name: "Connected SSID"
+  connection_status_name: "Connection Status"
+  system_status_name: "System Status"
+  
+  # ============================================================================
+  # TEMPERATURE SENSORS / SENSORY TEMPERATURY
+  # ============================================================================
+  ambient_temp_name: "Ambient Temperature"
+  inlet_temp_name: "Inlet Water Temperature"
+  outlet_temp_name: "Outlet Water Temperature"
+  discharge_temp_name: "Discharge Gas Temperature"
+  suction_temp_name: "Suction Gas Temperature"
+  hot_water_temp_name: "Hot Water Temperature"
+  coil_temp_name: "Coil Temperature"
+  suction_superheat_name: "Suction Superheat"
+  
+  # ============================================================================
+  # PRESSURE SENSORS / SENSORY CIŚNIENIA
+  # ============================================================================
+  discharge_pressure_name: "Discharge Pressure"
+  suction_pressure_name: "Suction Pressure"
+  
+  # ============================================================================
+  # PERFORMANCE SENSORS / SENSORY WYDAJNOŚCI
+  # ============================================================================
+  fan_output_name: "Fan Output"
+  pump_output_name: "Pump Output"
+  compressor_speed_name: "Compressor Speed"
+  eev_opening_name: "EEV Opening"
+  dc_fan1_speed_name: "DC Fan 1 Speed"
+  dc_fan2_speed_name: "DC Fan 2 Speed"
+  required_capacity_name: "Required Capacity"
+  actual_capacity_name: "Actual Capacity"
+  
+  # ============================================================================
+  # BINARY SENSORS / SENSORY BINARNE
+  # ============================================================================
+  power_supply_name: "Power Supply"
+  flow_switch_name: "Flow Switch (status)" 
+  external_control_name: "External Control Input"
+  circulation_pump_basic_name: "Circulation Pump Basic"
+  defrost_name: "Defrost"
+  time_zones_name: "Time Zones"
+  weekly_program_name: "Weekly Program"
+  circulation_pump_name: "Circulation Pump"
+  compressor_name: "Compressor"
+  fan_name: "Fan"
+  
+  # Global alarm status
+  general_alarm_name: "General Alarm"
+  
+  # ============================================================================
+  # ALARMS / ALARMY (001-174)
+  # ============================================================================
+  
+  # ============================================================================
+  # TEXT SENSORS / SENSORY TEKSTOWE
+  # ============================================================================
+  work_mode_name: "Work Mode"
+  system_status_text_name: "System Status"
+  
+  # ============================================================================
+  # CLIMATE CONTROLS / STEROWANIE KLIMATEM
+  # ============================================================================
+  main_climate_control_name: "Main Heat Pump Control"
+  heating_setpoint_name: "Heating Setpoint"
+  cooling_setpoint_name: "Cooling Setpoint"
+  hot_water_setpoint_name: "Hot Water Setpoint"
+  
+  # ============================================================================
+  # SWITCHES / PRZEŁĄCZNIKI
+  # ============================================================================
+  unit_power_name: "Unit On/Off"
+  
+  # ============================================================================
+  # SELECTS / WYBORY
+  # ============================================================================
+  main_work_mode_select_name: "Main Work Mode"
+  
+  # ============================================================================
+  # BUTTONS / PRZYCISKI
+  # ============================================================================
+  restart_esp_name: "Restart ESP"
+  safe_mode_boot_name: "Safe Mode Boot"
+  alarm_reset_name: "Alarm Reset"
+  
+  # ============================================================================
+  # MODE OPTIONS / OPCJE TRYBÓW
+  # ============================================================================
+  mode_cooling: "Cooling"
+  mode_heating: "Heating"
+  mode_dhw: "DHW"
+  mode_cooling_dhw: "Cooling + DHW"
+  mode_heating_dhw: "Heating + DHW"
+  
+  # ============================================================================
+  # STATUS OPTIONS / OPCJE STATUSU
+  # ============================================================================
+  status_ready: "Ready"
+  status_running: "Running"
+  status_alarm_stop: "Alarm Stop"
+  status_timer_stop: "Timer Stop"
+  status_service_stop: "Service Stop"
+  status_emergency_stop: "Emergency Stop"
+  status_button_stop: "Button Stop"
+  status_manual_mode: "Manual Mode"
+  status_antifreeze: "Antifreeze"
+  status_ac_linkage_stop: "AC Linkage Stop"
+  status_mode_change: "Mode Change"
+  status_unknown: "Unknown"  
+  alarm_001_name: "AL001 Too many mem writings"
+  alarm_002_name: "AL002 Retain mem write error"
+  alarm_003_name: "AL003 Inlet probe error"
+  alarm_004_name: "AL004 Outlet probe error"
+  alarm_005_name: "AL005 Ambient probe error"
+  alarm_006_name: "AL006 Condenser coil temp"
+  alarm_007_name: "AL007 Water flow switch"
+  alarm_008_name: "AL008 Phase sequ,prot,alarm"
+  alarm_009_name: "AL009 Unit work hour warning"
+  alarm_010_name: "AL010 Pump work hour warning"
+  alarm_011_name: "AL011 Comp,work hour warning"
+  alarm_012_name: "AL012 Cond,fan work hourWarn"
+  alarm_013_name: "AL013 Low superheat - Vlv,A"
+  alarm_014_name: "AL014 Low superheat - Vlv,B"
+  alarm_015_name: "AL015 LOP - Vlv,A"
+  alarm_016_name: "AL016 LOP - Vlv,B"
+  alarm_017_name: "AL017 MOP - Vlv,A"
+  alarm_018_name: "AL018 MOP - Vlv,B"
+  alarm_019_name: "AL019 Motor error - Vlv,A"
+  alarm_020_name: "AL020 Motor error - Vlv,B"
+  alarm_021_name: "AL021 Low suct,temp, - Vlv,A"
+  alarm_022_name: "AL022 Low suct,temp, - Vlv,B"
+  alarm_023_name: "AL023 High condens,temp,EVD"
+  alarm_024_name: "AL024 Probe S1 error EVD"
+  alarm_025_name: "AL025 Probe S2 error EVD"
+  alarm_026_name: "AL026 Probe S3 error EVD"
+  alarm_027_name: "AL027 Probe S4 error EVD"
+  alarm_028_name: "AL028 Battery discharge EVD"
+  alarm_029_name: "AL029 EEPROM alarm EVD"
+  alarm_030_name: "AL030 Incomplete closing EVD"
+  alarm_031_name: "AL031 Emergency closing EVD"
+  alarm_032_name: "AL032 FW not compatible EVD"
+  alarm_033_name: "AL033 Config, error EVD"
+  alarm_034_name: "AL034 EVD Driver offline"
+  alarm_035_name: "AL035 BLDC-alarm:High startup DeltaP"
+  alarm_036_name: "AL036 BLDC-alarm:Compressor shut off"
+  alarm_037_name: "AL037 BLDC-alarm:Out of Envelope"
+  alarm_038_name: "AL038 BLDC-alarm:Starting fail wait"
+  alarm_039_name: "AL039 BLDC-alarm:Starting fail exceeded"
+  alarm_040_name: "AL040 BLDC-alarm:Low delta pressure"
+  alarm_041_name: "AL041 BLDC-alarm:High discarge gas temp"
+  alarm_042_name: "AL042 Envelope-alarm:High compressor ratio"
+  alarm_043_name: "AL043 Envelope-alarm:High discharge press,"
+  alarm_044_name: "AL044 Envelope-alarm:High current"
+  alarm_045_name: "AL045 Envelope-alarm:High suction pressure"
+  alarm_046_name: "AL046 Envelope-alarm:Low compressor ratio"
+  alarm_047_name: "AL047 Envelope-alarm:Low pressure diff,"
+  alarm_048_name: "AL048 Envelope-alarm:Low discharge pressure"
+  alarm_049_name: "AL049 Envelope-alarm:Low suction pressure"
+  alarm_050_name: "AL050 Envelope-alarm:High discharge temp,"
+  alarm_051_name: "AL051 Power+ alarm:01-Overcurrent"
+  alarm_052_name: "AL052 Power+ alarm:02-Motor overload"
+  alarm_053_name: "AL053 Power+ alarm:03-DCbus overvoltage"
+  alarm_054_name: "AL054 Power+ alarm:04-DCbus undervoltage"
+  alarm_055_name: "AL055 Power+ alarm:05-Drive overtemp,"
+  alarm_056_name: "AL056 Power+ alarm:06-Drive undertemp,"
+  alarm_057_name: "AL057 Power+ alarm:07-Overcurrent HW"
+  alarm_058_name: "AL058 Power+ alarm:08-Motor overtemp,"
+  alarm_059_name: "AL059 Power+ alarm:09-IGBT module error"
+  alarm_060_name: "AL060 Power+ alarm:10-CPU error"
+  alarm_061_name: "AL061 Power+ alarm:11-Parameter default"
+  alarm_062_name: "AL062 Power+ alarm:12-DCbus ripple"
+  alarm_063_name: "AL063 Power+ alarm:13-Data comm, Fault"
+  alarm_064_name: "AL064 Power+ alarm:14-Thermistor fault"
+  alarm_065_name: "AL065 Power+ alarm:15-Autotuning fault"
+  alarm_066_name: "AL066 Power+ alarm:16-Drive disabled"
+  alarm_067_name: "AL067 Power+ alarm:17-Motor phase fault"
+  alarm_068_name: "AL068 Power+ alarm:18-Internal fan fault"
+  alarm_069_name: "AL069 Power+ alarm:19-Speed fault"
+  alarm_070_name: "AL070 Power+ alarm:20-PFC module error"
+  alarm_071_name: "AL071 Power+ alarm:21-PFC overvoltage"
+  alarm_072_name: "AL072 Power+ alarm:22-PFC undervoltage"
+  alarm_073_name: "AL073 Power+ alarm:23-STO DetectionError"
+  alarm_074_name: "AL074 Power+ alarm:24-STO DetectionError"
+  alarm_075_name: "AL075 Power+ alarm:25-Ground fault"
+  alarm_076_name: "AL076 Power+ alarm:26-Internal error 1"
+  alarm_077_name: "AL077 Power+ alarm:27-Internal error 2"
+  alarm_078_name: "AL078 Power+ alarm:28-Drive overload"
+  alarm_079_name: "AL079 Power+ alarm:29-uC safety fault"
+  alarm_080_name: "AL080 Power+ alarm:98-Unexpected restart"
+  alarm_081_name: "AL081 Power+ alarm:99-Unexpected stop"
+  alarm_082_name: "AL082 Power+ safety alarm:01-Current meas,fault"
+  alarm_083_name: "AL083 Power+ safety alarm:02-Current unbalanced"
+  alarm_084_name: "AL084 Power+ safety alarm:03-Over current"
+  alarm_085_name: "AL085 Power+ safety alarm:04-STO alarm"
+  alarm_086_name: "AL086 Power+ safety alarm:05-STO hardware alarm"
+  alarm_087_name: "AL087 Power+ safety alarm:06-PowerSupply missing"
+  alarm_088_name: "AL088 Power+ safety alarm:07-HW fault cmd,buffer"
+  alarm_089_name: "AL089 Power+ safety alarm:08-HW fault heater c,"
+  alarm_090_name: "AL090 Power+ safety alarm:09-Data comm, Fault"
+  alarm_091_name: "AL091 Power+ safety alarm:10-Compr, stall detect"
+  alarm_092_name: "AL092 Power+ safety alarm:11-DCbus over current"
+  alarm_093_name: "AL093 Power+ safety alarm:12-HWF DCbus current"
+  alarm_094_name: "AL094 Power+ safety alarm:13-DCbus voltage"
+  alarm_095_name: "AL095 Power+ safety alarm:14-HWF DCbus voltage"
+  alarm_096_name: "AL096 Power+ safety alarm:15-Input voltage"
+  alarm_097_name: "AL097 Power+ safety alarm:16-HWF input voltage"
+  alarm_098_name: "AL098 Power+ safety alarm:17-DCbus power alarm"
+  alarm_099_name: "AL099 Power+ safety alarm:18-HWF power mismatch"
+  alarm_100_name: "AL100 Power+ safety alarm:19-NTC over temp,"
+  alarm_101_name: "AL101 Power+ safety alarm:20-NTC under temp,"
+  alarm_102_name: "AL102 Power+ safety alarm:21-NTC fault"
+  alarm_103_name: "AL103 Power+ safety alarm:22-HWF sync fault"
+  alarm_104_name: "AL104 Power+ safety alarm:23-Invalid parameter"
+  alarm_105_name: "AL105 Power+ safety alarm:24-FW fault"
+  alarm_106_name: "AL106 Power+ safety alarm:25-HW fault"
+  alarm_107_name: "AL107 Power+ safety alarm:26-reseved"
+  alarm_108_name: "AL108 Power+ safety alarm:27-reseved"
+  alarm_109_name: "AL109 Power+ safety alarm:28-reseved"
+  alarm_110_name: "AL110 Power+ safety alarm:29-reseved"
+  alarm_111_name: "AL111 Power+ safety alarm:30-reseved"
+  alarm_112_name: "AL112 Power+ safety alarm:31-reseved"
+  alarm_113_name: "AL113 Power+ safety alarm:32-reseved"
+  alarm_114_name: "AL114 Power+ alarm:Power+ offline"
+  alarm_115_name: "AL115 EEV alarm:Low superheat"
+  alarm_116_name: "AL116 EEV alarm:LOP"
+  alarm_117_name: "AL117 EEV alarm:MOP"
+  alarm_118_name: "AL118 EEV alarm:High condens,temp,"
+  alarm_119_name: "AL119 EEV alarm:Low suction temp,"
+  alarm_120_name: "AL120 EEV alarm:Motor error"
+  alarm_121_name: "AL121 EEV alarm:Self Tuning"
+  alarm_122_name: "AL122 EEV alarm:Emergency closing"
+  alarm_123_name: "AL123 EEV alarm:Temperature delta"
+  alarm_124_name: "AL124 EEV alarm:Pressure delta"
+  alarm_125_name: "AL125 EEV alarm:Param,range error"
+  alarm_126_name: "AL126 EEV alarm:ServicePosit% err"
+  alarm_127_name: "AL127 EEV alarm:ValveID pin error"
+  alarm_128_name: "AL128 Low press alarm"
+  alarm_129_name: "AL129 High press alarm"
+  alarm_130_name: "AL130 Disc,temp,probe error"
+  alarm_131_name: "AL131 Suct,temp,probe error"
+  alarm_132_name: "AL132 Disc,press,probe error"
+  alarm_133_name: "AL133 Suct,press,probe error"
+  alarm_134_name: "AL134 Tank temp,probe error"
+  alarm_135_name: "AL135 EVI SuctT,probe error"
+  alarm_136_name: "AL136 EVI SuctP,probe error"
+  alarm_137_name: "AL137 Flow switch alarm"
+  alarm_138_name: "AL138 High temp, alarm"
+  alarm_139_name: "AL139 Low temp, alarm"
+  alarm_140_name: "AL140 Temp,delta alarm"
+  alarm_141_name: "AL141 EVI alarm:Param,range error"
+  alarm_142_name: "AL142 EVI alarm:Low superheat"
+  alarm_143_name: "AL143 EVI alarm:LOP"
+  alarm_144_name: "AL144 EVI alarm:MOP"
+  alarm_145_name: "AL145 EVI alarm:High condens,temp,"
+  alarm_146_name: "AL146 EVI alarm:Low suction temp,"
+  alarm_147_name: "AL147 EVI alarm:Motor error"
+  alarm_148_name: "AL148 EVI alarm:Self Tuning"
+  alarm_149_name: "AL149 EVI alarm:Emergency closing"
+  alarm_150_name: "AL150 EVI alarm:ServicePosit err"
+  alarm_151_name: "AL151 EVI alarm:ValveID pin error"
+  alarm_152_name: "AL152 Supply power error"
+  alarm_153_name: "AL153 Fan1 fault"
+  alarm_154_name: "AL154 Fan2 fault"
+  alarm_155_name: "AL155 Fans Offline"
+  alarm_165_name: "AL165 Slave1 Offline"
+  alarm_166_name: "AL166 Master Offline"
+  alarm_167_name: "AL167 Slave2 Offline"
+  alarm_168_name: "AL168 Slave3 Offline"
+  alarm_169_name: "AL169 Slave4 Offline"
+  alarm_170_name: "AL170 Slave5 Offline"
+  alarm_171_name: "AL171 Slave6 Offline"
+  alarm_172_name: "AL172 Slave7 Offline"
+  alarm_173_name: "AL173 Slave8 Offline"
+  alarm_174_name: "AL174 Slave9 Offline"
+  
+  # ============================================================================
+  # TEXT SENSORS / SENSORY TEKSTOWE
+  # ============================================================================
+  work_mode_name: "Work Mode"
+  system_status_text_name: "System Status"
+  
+  # ============================================================================
+  # CLIMATE CONTROLS / STEROWANIE KLIMATEM
+  # ============================================================================
+  main_climate_control_name: "Main Heat Pump Control"
+  heating_setpoint_name: "Heating Setpoint"
+  cooling_setpoint_name: "Cooling Setpoint"
+  hot_water_setpoint_name: "Hot Water Setpoint"
+  
+  # ============================================================================
+  # SWITCHES / PRZEŁĄCZNIKI
+  # ============================================================================
+  unit_power_name: "Unit On/Off"
+  
+  # ============================================================================
+  # SELECTS / WYBORY
+  # ============================================================================
+  main_work_mode_select_name: "Main Work Mode"
+  
+  # ============================================================================
+  # BUTTONS / PRZYCISKI
+  # ============================================================================
+  restart_esp_name: "Restart ESP"
+  safe_mode_boot_name: "Safe Mode Boot"
+  alarm_reset_name: "Reset Alarms"
+  
+  # ============================================================================
+  # MODE OPTIONS / OPCJE TRYBÓW
+  # ============================================================================
+  mode_cooling: "Cooling"
+  mode_heating: "Heating"
+  mode_dhw: "DHW"
+  mode_cooling_dhw: "Cooling + DHW"
+  mode_heating_dhw: "Heating + DHW"
+  
+  # ============================================================================
+  # STATUS OPTIONS / OPCJE STATUSU
+  # ============================================================================
+  status_ready: "Ready"
+  status_running: "Running"
+  status_alarm_stop: "Stop - Alarm"
+  status_timer_stop: "Stop - Timer"
+  status_service_stop: "Stop - Service"
+  status_emergency_stop: "Stop - Emergency"
+  status_button_stop: "Stop - Button"
+  status_manual_mode: "Manual Mode"
+  status_antifreeze: "Antifreeze"
+  status_ac_linkage_stop: "AC Linkage Stop"
+  status_mode_change: "Mode Change"
+  status_unknown: "Unknown"

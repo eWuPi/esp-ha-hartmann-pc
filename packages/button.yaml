@@ -1,0 +1,20 @@
+# Hartmann Heat Pump - Unified Button Components
+# Pompa Ciepła Hartmann - Ujednolicone Komponenty Button
+
+button:
+  - platform: restart
+    name: "${restart_esp_name}"
+  
+  - platform: safe_mode
+    name: "${safe_mode_boot_name}"
+
+  - platform: template
+    name: "${alarm_reset_name}"
+    id: alarm_reset_button
+    on_press:
+      - lambda: |-
+          ESP_LOGI("alarm_reset", "Resetting alarms...");
+          // Send Modbus command to reset alarms
+          esphome::modbus_controller::ModbusController *controller = id(${modbus_controller_id});
+          std::vector<uint16_t> data = {1};
+          controller->send_raw_cmd({42, 0x06, 0x00, 0x2A, 0x00, 0x01});  // Write register 42 = 1

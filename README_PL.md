@@ -21,6 +21,8 @@ limitations under the License.
 ![Maintenance](https://img.shields.io/maintenance/yes/2025?style=for-the-badge)
 ![GitHub License](https://img.shields.io/github/license/apache/apache?style=for-the-badge)
 ![Language](https://img.shields.io/badge/Languages-PL%20%7C%20EN-blue?style=for-the-badge)
+![ESPHome](https://img.shields.io/badge/ESPHome-2024.12.0+-green?style=for-the-badge)
+![Modbus](https://img.shields.io/badge/Modbus-RTU-blue?style=for-the-badge)
 
 ## 🌍 Language Support / Obsługa języków
 
@@ -28,34 +30,47 @@ limitations under the License.
 
 **🇵🇱 Polski**: Ta integracja obsługuje polski interfejs - niniejsza dokumentacja jest w języku polskim.
 
-## 🎯 Szybki Start - Wybór Języka
+## 🚀 Ultra-prosta instalacja z GitHub
 
-Ta integracja oferuje **dwie opcje instalacji**:
+Ta integracja wykorzystuje **nowoczesny system pakietów ESPHome**, który automatycznie pobiera wszystkie komponenty z GitHub. **Wystarczą 3 linijki kodu!**
 
-### 📦 Opcja 1: Wielojęzyczna (DOMYŚLNA)
-Użyj pliku `hartmann-heat-pump.yaml` aby wybrać język interfejsu:
+### 📦 Instalacja w jednej linijce:
 
 ```yaml
-# Dla polskiego interfejsu:
-language_pack: "PL"
-
-# Dla angielskiego interfejsu:
-# language_pack: "EN"
+packages:
+  hartmann_packages:
+    url: https://github.com/eWuPi/esp-ha-hartmann-pc
+    ref: main
+    refresh: 300s
 ```
 
-**Korzyści:**
-- ✅ Łatwa zmiana języka bez edycji całej konfiguracji
-- ✅ Wszystkie sensory z polskimi/angielskimi nazwami
-- ✅ Przyszłe aktualizacje języków
+**I już masz wszystko:**
+- ✅ **165+ alarmów** z polskimi nazwami z dokumentacji Hartmann
+- ✅ **Zjednoczony termostat** z obsługą grzania/chłodzenia  
+- ✅ **Wszystkie sensory** (temperatury, ciśnienia, przepływy)
+- ✅ **Sterowanie trybami pracy** i parametrami
+- ✅ **Automatyczne aktualizacje** co 5 minut z GitHub
+- ✅ **Wielojęzyczny interfejs** (domyślnie PL, opcjonalnie EN)
 
-### 📄 Opcja 2: Legacy (dla zaawansowanych)
-Jeśli potrzebujesz specjalnych modyfikacji, możesz stworzyć własną konfigurację bazując na strukturze pakietów.
-
-📖 **Szczegółowe instrukcje**: Zobacz `LANGUAGE_GUIDE_PL.md`
+### 🌍 Zmiana języka na angielski:
+```yaml
+packages:
+  hartmann_packages:
+    url: https://github.com/eWuPi/esp-ha-hartmann-pc
+    ref: main
+    refresh: 300s
+  
+  # Override to English
+  english_translations:
+    url: https://github.com/eWuPi/esp-ha-hartmann-pc
+    ref: main  
+    files: [packages/translations/EN.yaml]
+    refresh: 300s
+```
 
 ---
 
-Integracja ESPHome dla pompy ciepła Hartmann opartej na protokole Modbus RTU. Projekt zapewnia kompleksową integrację z Home Assistant, umożliwiając monitorowanie i sterowanie systemem pompy ciepła w czasie rzeczywistym.
+Integracja ESPHome dla pompy ciepła Hartmann opartej na protokole Modbus RTU. Projekt zapewnia kompleksową integrację z Home Assistant, umożliwiając monitorowanie i sterowanie systemem pompy ciepła w czasie rzeczywistym z **165 alarmami** z rzeczywistej dokumentacji Hartmann.
 
 ## Podziękowania
 

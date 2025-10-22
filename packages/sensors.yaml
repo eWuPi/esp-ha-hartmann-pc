@@ -1,23 +1,23 @@
-# Hartmann Heat Pump - Sensor Components (English)
-# Pompa Ciepła Hartmann - Sensor Components
+# Hartmann Heat Pump - Unified Sensor Components
+# Pompa Ciepła Hartmann - Ujednolicone Komponenty Sensor
 
 sensor:
   # System sensors
   - platform: uptime
-    name: "Uptime"
+    name: "${uptime_name}"
     update_interval: 60s
   
   - platform: wifi_signal
-    name: "WiFi Signal"
+    name: "${wifi_signal_name}"
     update_interval: 60s
 
   # Heat pump temperature sensors
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
-    name: "Ambient Temperature"
+    name: "${ambient_temp_name}"
     id: ambient_temp
     register_type: holding
-    address: 40191  # B3: External air temperature
+    address: 190  # B3: External air temperature (40191-40001=190)
     unit_of_measurement: "°C"
     value_type: FP32
     accuracy_decimals: 1
@@ -26,10 +26,10 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
-    name: "Inlet Water Temperature"
+    name: "${inlet_temp_name}"
     id: inlet_temp
     register_type: holding
-    address: 40189  # B1: Return water temperature
+    address: 188  # B1: Return water temperature (40189-40001=188)
     unit_of_measurement: "°C"
     value_type: FP32
     accuracy_decimals: 1
@@ -38,10 +38,10 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
-    name: "Outlet Water Temperature"
+    name: "${outlet_temp_name}"
     id: outlet_temp
     register_type: holding
-    address: 40190  # B2: Supply water temperature
+    address: 189  # B2: Supply water temperature (40190-40001=189)
     unit_of_measurement: "°C"
     value_type: FP32
     accuracy_decimals: 1
@@ -50,10 +50,10 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
-    name: "Discharge Gas Temperature"
+    name: "${discharge_temp_name}"
     id: discharge_temp
     register_type: holding
-    address: 40192  # B4: Compressor discharge temperature
+    address: 191  # B4: Compressor discharge temperature (40192-40001=191)
     unit_of_measurement: "°C"
     value_type: FP32
     accuracy_decimals: 1
@@ -62,10 +62,10 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
-    name: "Suction Gas Temperature"
+    name: "${suction_temp_name}"
     id: suction_temp
     register_type: holding
-    address: 40193  # B5: Compressor suction temperature
+    address: 192  # B5: Compressor suction temperature (40193-40001=192)
     unit_of_measurement: "°C"
     value_type: FP32
     accuracy_decimals: 1
@@ -74,10 +74,10 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
-    name: "Hot Water Temperature"
+    name: "${hot_water_temp_name}"
     id: hot_water_temp
     register_type: holding
-    address: 40196  # B8: Domestic hot water temperature
+    address: 195  # B8: Domestic hot water temperature (40196-40001=195)
     unit_of_measurement: "°C"
     value_type: FP32
     accuracy_decimals: 1
@@ -86,10 +86,10 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
-    name: "Coil Temperature"
+    name: "${coil_temp_name}"
     id: coil_temp
     register_type: holding
-    address: 40197  # B9: Evaporator coil temperature
+    address: 196  # B9: Evaporator coil temperature (40197-40001=196)
     unit_of_measurement: "°C"
     value_type: FP32
     accuracy_decimals: 1
@@ -99,10 +99,10 @@ sensor:
   # Pressure sensors
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
-    name: "Discharge Pressure"
+    name: "${discharge_pressure_name}"
     id: discharge_pressure
     register_type: holding
-    address: 40194  # B6: High pressure sensor
+    address: 193  # B6: High pressure sensor (40194-40001=193)
     unit_of_measurement: "bar"
     value_type: FP32
     accuracy_decimals: 1
@@ -111,10 +111,10 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
-    name: "Suction Pressure"
+    name: "${suction_pressure_name}"
     id: suction_pressure
     register_type: holding
-    address: 40195  # B7: Low pressure sensor
+    address: 194  # B7: Low pressure sensor (40195-40001=194)
     unit_of_measurement: "bar"
     value_type: FP32
     accuracy_decimals: 1
@@ -124,10 +124,10 @@ sensor:
   # Performance and control sensors
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
-    name: "Fan Output"
+    name: "${fan_output_name}"
     id: fan_output
     register_type: holding
-    address: 40198  # Y1: Fan speed output percentage
+    address: 197  # Y1: Fan speed output percentage (40198-40001=197)
     unit_of_measurement: "%"
     value_type: FP32
     accuracy_decimals: 1
@@ -135,10 +135,10 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
-    name: "Pump Output"
+    name: "${pump_output_name}"
     id: pump_output
     register_type: holding
-    address: 40199  # Y3: Pump PWM output percentage
+    address: 198  # Y3: Pump PWM output percentage (40199-40001=198)
     unit_of_measurement: "%"
     value_type: FP32
     accuracy_decimals: 1
@@ -146,10 +146,10 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
-    name: "Compressor Speed"
+    name: "${compressor_speed_name}"
     id: compressor_speed
     register_type: holding
-    address: 40206  # Actual compressor speed
+    address: 205  # Actual compressor speed (40206-40001=205)
     unit_of_measurement: "rps"
     value_type: FP32
     accuracy_decimals: 0
@@ -157,10 +157,10 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
-    name: "EEV Opening"
+    name: "${eev_opening_name}"
     id: eev_opening
     register_type: holding
-    address: 40208  # Electronic expansion valve opening
+    address: 207  # Electronic expansion valve opening (40208-40001=207)
     unit_of_measurement: "%"
     value_type: U_WORD
     accuracy_decimals: 0
@@ -168,10 +168,10 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
-    name: "Suction Superheat"
+    name: "${suction_superheat_name}"
     id: suction_superheat
     register_type: holding
-    address: 40212  # Suction gas superheat
+    address: 211  # Suction gas superheat (40212-40001=211)
     unit_of_measurement: "K"
     value_type: FP32
     accuracy_decimals: 1
@@ -181,10 +181,10 @@ sensor:
   # Additional performance sensors
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
-    name: "DC Fan 1 Speed"
+    name: "${dc_fan1_speed_name}"
     id: dc_fan1_speed
     register_type: holding
-    address: 40201  # DC Fan 1 actual speed
+    address: 200  # DC Fan 1 actual speed (40201-40001=200)
     unit_of_measurement: "rpm"
     value_type: U_WORD
     accuracy_decimals: 0
@@ -192,10 +192,10 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
-    name: "DC Fan 2 Speed"
+    name: "${dc_fan2_speed_name}"
     id: dc_fan2_speed
     register_type: holding
-    address: 40203  # DC Fan 2 actual speed
+    address: 202  # DC Fan 2 actual speed (40203-40001=202)
     unit_of_measurement: "rpm"
     value_type: U_WORD
     accuracy_decimals: 0
@@ -203,10 +203,10 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
-    name: "Required Capacity"
+    name: "${required_capacity_name}"
     id: required_capacity
     register_type: holding
-    address: 40204  # Compressor required capacity
+    address: 203  # Compressor required capacity (40204-40001=203)
     unit_of_measurement: "%"
     value_type: FP32
     accuracy_decimals: 1
@@ -214,10 +214,10 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
-    name: "Actual Capacity"
+    name: "${actual_capacity_name}"
     id: actual_capacity
     register_type: holding
-    address: 40205  # Compressor actual capacity
+    address: 204  # Compressor actual capacity (40205-40001=204)
     unit_of_measurement: "%"
     value_type: FP32
     accuracy_decimals: 1

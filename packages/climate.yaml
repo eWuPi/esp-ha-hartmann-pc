@@ -1,0 +1,51 @@
+# Hartmann Heat Pump - Climate Components
+# Pompa Ciepła Hartmann - Komponenty Climate
+
+climate:
+  # Main thermostat for heat pump control with all modes
+  - platform: thermostat
+    name: "${main_climate_control_name}"
+    id: main_climate_control
+    sensor: outlet_temp
+    min_heating_off_time: 300s
+    min_heating_run_time: 300s
+    min_cooling_off_time: 300s
+    min_cooling_run_time: 300s
+    min_idle_time: 30s
+    
+    # Define presets for different operation modes
+    preset:
+      - name: heating
+        mode: heat
+        default_target_temperature_low: 22.0
+        default_target_temperature_high: 25.0
+      - name: cooling
+        mode: cool
+        default_target_temperature_low: 20.0
+        default_target_temperature_high: 24.0
+      - name: heating_dhw
+        mode: heat
+        default_target_temperature_low: 22.0
+        default_target_temperature_high: 25.0
+      - name: cooling_dhw
+        mode: cool
+        default_target_temperature_low: 20.0
+        default_target_temperature_high: 24.0
+    
+    default_preset: heating
+    
+    heat_action:
+      - logger.log: "Setting heat pump to heating mode"
+      - select.set:
+          id: main_work_mode_select
+          option: "${mode_heating}"
+    
+    cool_action:
+      - logger.log: "Setting heat pump to cooling mode"
+      - select.set:
+          id: main_work_mode_select
+          option: "${mode_cooling}"
+          
+    idle_action:
+      - logger.log: "Setting heat pump to idle"
+      - switch.turn_off: unit_power
