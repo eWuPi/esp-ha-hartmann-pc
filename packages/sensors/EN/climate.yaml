@@ -1,0 +1,44 @@
+# Hartmann Heat Pump - Climate Components (English)
+
+climate:
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Heating Control"
+    id: heating_climate
+    current_temperature_register_address: 40190  # B2: Supply water temperature
+    target_temperature_register_address: 1       # Register 1: Heating setpoint
+    supports_heat: true
+    supports_cool: false
+    heat_action_register_address: 0              # Register 0: Work mode (1=heating)
+    heat_action_register_value: 1
+    visual_min_temperature: 10.0
+    visual_max_temperature: 55.0
+    visual_temperature_step: 0.5
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Cooling Control"
+    id: cooling_climate
+    current_temperature_register_address: 40190  # B2: Supply water temperature
+    target_temperature_register_address: 2       # Register 2: Cooling setpoint
+    supports_heat: false
+    supports_cool: true
+    cool_action_register_address: 0              # Register 0: Work mode (0=cooling)
+    cool_action_register_value: 0
+    visual_min_temperature: 12.0
+    visual_max_temperature: 25.0
+    visual_temperature_step: 0.5
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Hot Water Control"
+    id: hot_water_climate
+    current_temperature_register_address: 40196  # B8: Hot water temperature
+    target_temperature_register_address: 3       # Register 3: Hot water setpoint
+    supports_heat: true
+    supports_cool: false
+    heat_action_register_address: 0              # Register 0: Work mode (2=hot water)
+    heat_action_register_value: 2
+    visual_min_temperature: 10.0
+    visual_max_temperature: 80.0
+    visual_temperature_step: 0.5

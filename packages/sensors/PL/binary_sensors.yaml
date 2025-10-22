@@ -1,0 +1,87 @@
+# Hartmann Heat Pump - Binary Sensor Components (Polish)
+# Pompa Ciepła Hartmann - Komponenty Binary Sensor
+
+binary_sensor:
+  - platform: status
+    name: "Status połączenia"
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Czujnik przepływu"
+    id: flow_switch
+    register_type: discrete_input
+    address: 10002  # ID1: Status czujnika przepływu
+    device_class: problem
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Status pompy obiegowej"
+    id: pump_status
+    register_type: discrete_input
+    address: 10179  # Status pracy pompy obiegowej
+    device_class: running
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Status sprężarki"
+    id: compressor_status
+    register_type: discrete_input
+    address: 10180  # Status pracy sprężarki
+    device_class: running
+
+  # Alarmy krytyczne - polski
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Alarm: Wysokie ciśnienie"
+    id: alarm_high_pressure
+    register_type: discrete_input
+    address: 10014  # AL001: Wysokie ciśnienie
+    device_class: problem
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Alarm: Niskie ciśnienie"
+    id: alarm_low_pressure
+    register_type: discrete_input
+    address: 10015  # AL002: Niskie ciśnienie
+    device_class: problem
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Alarm: Błąd czujnika powrotu"
+    id: alarm_inlet_probe
+    register_type: discrete_input
+    address: 10016  # AL003: Błąd czujnika temperatury powrotu
+    device_class: problem
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Alarm: Błąd czujnika zasilania"
+    id: alarm_outlet_probe
+    register_type: discrete_input
+    address: 10017  # AL004: Błąd czujnika temperatury zasilania
+    device_class: problem
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Alarm: Błąd czujnika zewnętrznego"
+    id: alarm_ambient_probe
+    register_type: discrete_input
+    address: 10018  # AL005: Błąd czujnika temperatury zewnętrznej
+    device_class: problem
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Alarm: Błąd czujnika przepływu"
+    id: alarm_flow_switch
+    register_type: discrete_input
+    address: 10020  # AL007: Alarm czujnika przepływu wody
+    device_class: problem
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Alarm: Błąd faz"
+    id: alarm_phase_sequence
+    register_type: discrete_input
+    address: 10021  # AL008: Alarm czujnika faz
+    device_class: problem

@@ -1,0 +1,9 @@
+# Hartmann Heat Pump - Switch Components (English)
+
+switch:
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Unit On/Off"
+    id: unit_power
+    register_type: coil
+    address: 1  # Unit main on/off control

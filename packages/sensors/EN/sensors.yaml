@@ -1,10 +1,6 @@
-# Hartmann Heat Pump Sensors - English Version
-# ESPHome Package for Hartmann Heat Pump Integration
-#
-# This package contains all sensor definitions with English names
-# Use this package for English language interface
+# Hartmann Heat Pump - Sensor Components (English)
+# Pompa Ciepła Hartmann - Sensor Components
 
-# Temperature sensors - English names
 sensor:
   # System sensors
   - platform: uptime
@@ -15,7 +11,7 @@ sensor:
     name: "WiFi Signal"
     update_interval: 60s
 
-  # Heat pump temperature sensors - REAL ADDRESSES from Hartmann Modbus map
+  # Heat pump temperature sensors
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
     name: "Ambient Temperature"
@@ -33,7 +29,7 @@ sensor:
     name: "Inlet Water Temperature"
     id: inlet_temp
     register_type: holding
-    address: 40189  # B1: Water return temperature
+    address: 40189  # B1: Return water temperature
     unit_of_measurement: "°C"
     value_type: FP32
     accuracy_decimals: 1
@@ -45,7 +41,7 @@ sensor:
     name: "Outlet Water Temperature"
     id: outlet_temp
     register_type: holding
-    address: 40190  # B2: Water supply temperature
+    address: 40190  # B2: Supply water temperature
     unit_of_measurement: "°C"
     value_type: FP32
     accuracy_decimals: 1
@@ -90,7 +86,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
-    name: "Evaporator Coil Temperature"
+    name: "Coil Temperature"
     id: coil_temp
     register_type: holding
     address: 40197  # B9: Evaporator coil temperature
@@ -182,173 +178,47 @@ sensor:
     device_class: temperature
     state_class: measurement
 
-# Text sensors for status information - English
-text_sensor:
-  - platform: version
-    name: "ESPHome Version"
-  
-  - platform: wifi_info
-    ip_address:
-      name: "IP Address"
-    ssid:
-      name: "Connected SSID"
-
-  # Heat pump status
+  # Additional performance sensors
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
-    name: "Work Mode"
-    id: work_mode
+    name: "DC Fan 1 Speed"
+    id: dc_fan1_speed
     register_type: holding
-    address: 40216  # Current work mode readback
-    raw_encode: HEXBYTES
-    lambda: |-
-      uint16_t value = modbus_controller::word_from_hex_str(x, 0);
-      switch (value) {
-        case 0: return std::string("Cooling");
-        case 1: return std::string("Heating");
-        case 2: return std::string("DHW");
-        case 3: return std::string("Cooling + DHW");
-        case 4: return std::string("Heating + DHW");
-        default: return std::string("Unknown");
-      }
-
-  - platform: modbus_controller
-    modbus_controller_id: ${modbus_controller_id}
-    name: "System Status"
-    id: system_status_text
-    register_type: holding
-    address: 40218  # System status
-    raw_encode: HEXBYTES
-    lambda: |-
-      uint16_t value = modbus_controller::word_from_hex_str(x, 0);
-      switch (value) {
-        case 0: return std::string("Ready");
-        case 1: return std::string("Running");
-        case 2: return std::string("Alarm Stop");
-        case 3: return std::string("Timer Stop");
-        case 4: return std::string("Service Stop");
-        case 5: return std::string("Emergency Stop");
-        case 6: return std::string("Button Stop");
-        case 7: return std::string("Manual Mode");
-        case 8: return std::string("Antifreeze");
-        case 9: return std::string("AC Linkage Stop");
-        case 10: return std::string("Mode Change");
-        default: return std::string("Unknown");
-      }
-
-# Binary sensors - English
-binary_sensor:
-  - platform: status
-    name: "Connection Status"
-    
-  - platform: modbus_controller
-    modbus_controller_id: ${modbus_controller_id}
-    name: "Flow Switch"
-    id: flow_switch
-    register_type: discrete_input
-    address: 10002  # ID1: Flow switch status
-    device_class: problem
-    
-  - platform: modbus_controller
-    modbus_controller_id: ${modbus_controller_id}
-    name: "Circulation Pump Status"
-    id: pump_status
-    register_type: discrete_input
-    address: 10179  # Circulation pump operation status
-    device_class: running
-    
-  - platform: modbus_controller
-    modbus_controller_id: ${modbus_controller_id}
-    name: "Compressor Status"
-    id: compressor_status
-    register_type: discrete_input
-    address: 10180  # Compressor operation status
-    device_class: running
-
-# Number inputs for temperature setpoints - English
-number:
-  - platform: modbus_controller
-    modbus_controller_id: ${modbus_controller_id}
-    name: "Heating Setpoint"
-    id: heating_setpoint
-    register_type: holding
-    address: 40002  # Heating setpoint
-    value_type: FP32
-    min_value: 10.0
-    max_value: 55.0
-    step: 0.5
-    unit_of_measurement: "°C"
-    mode: box
-    device_class: temperature
-
-  - platform: modbus_controller
-    modbus_controller_id: ${modbus_controller_id}
-    name: "Cooling Setpoint"
-    id: cooling_setpoint
-    register_type: holding
-    address: 40003  # Cooling setpoint
-    value_type: FP32
-    min_value: 1.2
-    max_value: 25.0
-    step: 0.1
-    unit_of_measurement: "°C"
-    mode: box
-    device_class: temperature
-
-  - platform: modbus_controller
-    modbus_controller_id: ${modbus_controller_id}
-    name: "Hot Water Setpoint"
-    id: hot_water_setpoint
-    register_type: holding
-    address: 40004  # Hot water setpoint
-    value_type: FP32
-    min_value: 10.0
-    max_value: 80.0
-    step: 0.5
-    unit_of_measurement: "°C"
-    mode: box
-    device_class: temperature
-
-# Switches - English
-switch:
-  - platform: modbus_controller
-    modbus_controller_id: ${modbus_controller_id}
-    name: "Unit On/Off"
-    id: unit_power
-    register_type: coil
-    address: 10001  # Unit main on/off control
-
-# Select for operation modes - English
-select:
-  - platform: modbus_controller
-    modbus_controller_id: ${modbus_controller_id}
-    name: "Work Mode Select"
-    id: work_mode_select
-    address: 40001  # Work mode select register
+    address: 40201  # DC Fan 1 actual speed
+    unit_of_measurement: "rpm"
     value_type: U_WORD
-    options:
-      - "Cooling"
-      - "Heating"
-      - "DHW"
-      - "Cooling + DHW"
-      - "Heating + DHW"
-    optionsmap:
-      "Cooling": 0
-      "Heating": 1
-      "DHW": 2
-      "Cooling + DHW": 3
-      "Heating + DHW": 4
-
-# Button for manual operations - English
-button:
-  - platform: restart
-    name: "Restart ESP"
-  
-  - platform: safe_mode
-    name: "Safe Mode Boot"
+    accuracy_decimals: 0
+    state_class: measurement
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
-    name: "Alarm Reset"
-    address: 42  # Alarm reset
-    command_on: 1
+    name: "DC Fan 2 Speed"
+    id: dc_fan2_speed
+    register_type: holding
+    address: 40203  # DC Fan 2 actual speed
+    unit_of_measurement: "rpm"
+    value_type: U_WORD
+    accuracy_decimals: 0
+    state_class: measurement
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Required Capacity"
+    id: required_capacity
+    register_type: holding
+    address: 40204  # Compressor required capacity
+    unit_of_measurement: "%"
+    value_type: FP32
+    accuracy_decimals: 1
+    state_class: measurement
+
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Actual Capacity"
+    id: actual_capacity
+    register_type: holding
+    address: 40205  # Compressor actual capacity
+    unit_of_measurement: "%"
+    value_type: FP32
+    accuracy_decimals: 1
+    state_class: measurement

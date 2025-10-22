@@ -53,9 +53,6 @@ esphome:
   project:
     name: "hartmann.heat_pump"
     version: "2.0.0"
-  # Language package inclusion
-  includes:
-    - packages/sensors/hartmann_sensors_${language_pack}.yaml
 
 esp32:
   board: esp32dev
@@ -157,9 +154,15 @@ binary_sensor:
                         value: 'true'
                     - logger.log: "Entering safe mode - Home Assistant disconnected"
 
-# Include language-specific sensor package
+# Include language-specific sensor packages
 packages:
-  sensor_package: !include packages/sensors/hartmann_sensors_${language_pack}.yaml
+  sensors: !include packages/sensors/${language_pack}/sensors.yaml
+  text_sensors: !include packages/sensors/${language_pack}/text_sensors.yaml
+  binary_sensors: !include packages/sensors/${language_pack}/binary_sensors.yaml
+  climate: !include packages/sensors/${language_pack}/climate.yaml
+  select: !include packages/sensors/${language_pack}/select.yaml
+  switch: !include packages/sensors/${language_pack}/switch.yaml
+  button: !include packages/sensors/${language_pack}/button.yaml
 
 # Climate component for Home Assistant integration
 climate:
