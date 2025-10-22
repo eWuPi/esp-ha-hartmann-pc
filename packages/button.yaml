@@ -16,5 +16,5 @@ button:
           ESP_LOGI("alarm_reset", "Resetting alarms...");
           // Send Modbus command to reset alarms
           esphome::modbus_controller::ModbusController *controller = id(${modbus_controller_id});
-          std::vector<uint16_t> data = {1};
-          controller->send_raw_cmd({42, 0x06, 0x00, 0x2A, 0x00, 0x01});  // Write register 42 = 1
+          std::vector<uint8_t> data = {42, 0x06, 0x00, 0x2A, 0x00, 0x01};
+          controller->send_raw(data);  // Write register 42 = 1
